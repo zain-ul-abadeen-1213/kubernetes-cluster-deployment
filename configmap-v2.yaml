@@ -1,0 +1,21 @@
+# Same ConfigMap as configmap.yaml, with the page text changed to Version 2.
+# Apply this file and restart the deployment to perform a rolling update.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zaintech-web-page
+  namespace: zaintech
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <title>Zain Tech Automation Solutions</title>
+    </head>
+    <body>
+      <h1>Zain Tech Automation Solutions</h1>
+      <p>Automate. Accelerate. Achieve.</p>
+      <p>Deployed on Kubernetes — <span>Version 2</span></p>
+    </body>
+    </html>
