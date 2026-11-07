@@ -134,9 +134,35 @@ CPU climbs past 50%, the HPA adds pods (up to 6), and when the load generator is
 - `bash verify.sh` finishes with all checks PASS.
 - Under load, the HPA scales the deployment from 3 up toward 6 replicas and back down when the load stops.
 
-## Verified run
+## Verified run — 7 November 2026
 
-_Pending — this section will be completed with the real local run results, screenshots, and verification output after the cluster has been executed end to end._
+The cluster was executed end to end on a local Kali Linux VM (kind v0.33.0, kubectl v1.37.2):
+
+- `scripts/setup.sh` created the 3-node cluster **zaintech** — all 3 nodes **Ready** (1 control-plane + 2 workers, Kubernetes v1.37.0).
+- Namespace, ConfigMap, Deployment, Service, and HPA were applied in one run; the deployment rolled out 3/3 replicas with all pods **Running** and zero restarts.
+- The Zain Tech Automation Solutions page was served live at `http://localhost:30080` (Version 1).
+- A **rolling update to Version 2** completed with zero downtime — new pods replaced old ones one at a time ("successfully rolled out").
+- `bash verify.sh` finished with **Passed: 4, Failed: 0** (3 nodes Ready, 3 pods Running, page served on :30080, HPA present).
+
+**Cluster nodes — all Ready:**
+
+![Cluster nodes](docs/01-nodes-ready.png)
+
+**Application pods — Running:**
+
+![Pods running](docs/02-pods-running.png)
+
+**Web page served by the cluster — Version 1:**
+
+![Web page Version 1](docs/03-web-page-v1.png)
+
+**Rolling update to Version 2 — completed:**
+
+![Rolling update](docs/04-rolling-update-v2.png)
+
+**Verification script — 4 passed, 0 failed:**
+
+![verify.sh output](docs/05-verify-pass.png)
 
 ## Cleanup
 
